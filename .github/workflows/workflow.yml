@@ -34,6 +34,6 @@ jobs:
         with:
           version: ${{ steps.previoustag.outputs.tag }}
 
-      - run: echo NEXT_VERSION
+      - run: echo $NEXT_VERSION
         env:
           NEXT_VERSION: ${{ steps.semvers.outputs.patch }}
