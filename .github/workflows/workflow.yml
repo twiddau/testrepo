@@ -22,3 +22,23 @@ jobs:
 
       - name: Environment
         run:  export
+        with:
+          tag_name: ${{ github.release.tag_name }}
+
+      - uses: actions/checkout@v1
+
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: 'Get next minor version'
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${{ steps.previoustag.outputs.tag }}
+
+      - run: echo NEXT_VERSION
+        with:
+          NEXT_VERSION: ${{ steps.semvers.outputs.patch }}
