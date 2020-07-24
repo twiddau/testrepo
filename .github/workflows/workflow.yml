@@ -19,7 +19,7 @@ jobs:
       # This step prints an output (time) from the previous step's action.
       - name: Echo the greeting's time
         run: echo 'The time was ${{ steps.hello.outputs.time }}.'
-        
+
       - uses: actions/checkout@v1
 
       - name: 'Get Previous tag'
@@ -35,5 +35,5 @@ jobs:
           version: ${{ steps.previoustag.outputs.tag }}
 
       - run: echo NEXT_VERSION
-        with:
+        env:
           NEXT_VERSION: ${{ steps.semvers.outputs.patch }}
