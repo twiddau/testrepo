@@ -1,6 +1,6 @@
 name: Greet Everyone
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on: [push, release]
 
 
 jobs:
@@ -10,6 +10,10 @@ jobs:
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
+      - name:
+        run: 
+          - echo ::set-env name=REV_TYPE::`echo ${GITHUB_REF} | sed -s 's/refs\/\(.*\)\/.*/\1/g'`
+          - echo ::set-env name=REF_VERSION::`echo ${GITHUB_REF} | sed -s 's/refs\/\(.*\)\/\(.*/\1/g'`
       # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
       - name: Hello world
         uses: actions/hello-world-javascript-action@v1
